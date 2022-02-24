@@ -10,6 +10,8 @@ import ProductTiles from 'src/components/sections/ProductTiles'
 import { mark } from 'src/sdk/tests/mark'
 import type { PageProps } from 'gatsby'
 import type { HomePageQueryQuery } from '@generated/graphql'
+import TemporaryShelf from 'src/components/sections/TemporaryShelf'
+import { useTimer, TimerContextProvider } from 'src/hooks/useTimer'
 
 export type Props = PageProps<HomePageQueryQuery>
 
@@ -24,6 +26,8 @@ function Page(props: Props) {
   const title = site?.siteMetadata?.title ?? ''
   const siteUrl = `https://${host}${pathname}`
   const products = allStoreProduct?.nodes
+
+  const { seconds } = useTimer()
 
   return (
     <>
@@ -71,6 +75,13 @@ function Page(props: Props) {
       <section className="page__section">
         <IncentivesHeader />
       </section>
+
+      <TimerContextProvider>
+        <section className="page__section">
+          <p>S {seconds}</p>
+          <TemporaryShelf products={products?.slice(4, 8)} />
+        </section>
+      </TimerContextProvider>
 
       <section className="page__section page__section-shelf / grid-section">
         <h2 className="title-section / grid-content">Most Wanted</h2>

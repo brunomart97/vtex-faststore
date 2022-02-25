@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import type { ProductSummary_ProductFragment } from '@generated/graphql'
 
 import './temporary-shelf.scss'
@@ -7,23 +7,39 @@ interface TemporaryShelfProps {
   products: ProductSummary_ProductFragment[]
   hours: number
   minutes: number
-  seconds: number
 }
 
-function TemporaryShelf({
-  products,
-  hours,
-  minutes,
-  seconds,
-}: TemporaryShelfProps) {
+function TemporaryShelf({ products, hours, minutes }: TemporaryShelfProps) {
+  const [hoursTime, setHoursTime] = useState(hours)
+  const [minutesTime, setMinutesTime] = useState(minutes)
+  const [secondsTime, setSecondsTime] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSecondsTime((currentSecond) => currentSecond - 1)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  if (secondsTime === 0) {
+    setMinutesTime((currentMinute) => currentMinute - 1)
+    setSecondsTime(59)
+  }
+
+  if (minutesTime === 0 && secondsTime === 0) {
+    setHoursTime((currentHour) => currentHour - 1)
+    setMinutesTime(59)
+  }
+
   return (
-    <div className="temporary-shelf-container">
+    <div className={`temporary-shelf-container ${hoursTime >= 0 && 'visible'}`}>
       <div className="temporary-time-box">
         <h3>Limited Time Offer</h3>
         <div className="counter">
-          <span>{hours < 10 ? `0${hours}` : hours}:</span>
-          <span>{minutes < 10 ? `0${minutes}` : minutes}:</span>
-          <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
+          <span>{hoursTime < 10 ? `0${hoursTime}` : hoursTime}:</span>
+          <span>{minutesTime < 10 ? `0${minutesTime}` : minutesTime}:</span>
+          <span>{secondsTime < 10 ? `0${secondsTime}` : secondsTime}</span>
         </div>
       </div>
       <ul className="temporary-shelf-subcontainer">

@@ -1,7 +1,12 @@
 .temporary-shelf-container {
+  display: none;
   width: 1280px;
   margin: 0 auto;
   padding: 30px 32px;
+
+  &.visible {
+    display: block;
+  }
 
   .temporary-time-box {
     display: flex;

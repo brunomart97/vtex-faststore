@@ -73,7 +73,12 @@ function Page(props: Props) {
         <IncentivesHeader />
       </section>
 
-      <TemporaryShelf products={products?.slice(4, 8)} hours={0} minutes={1} />
+      <TemporaryShelf
+        products={products?.slice(4, 8)}
+        title="Limited Time Offer"
+        hours={1}
+        minutes={30}
+      />
 
       <section className="page__section page__section-shelf / grid-section">
         <h2 className="title-section / grid-content">Most Wanted</h2>

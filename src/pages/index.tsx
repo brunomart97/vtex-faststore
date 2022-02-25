@@ -26,9 +26,9 @@ function Page(props: Props) {
   const siteUrl = `https://${host}${pathname}`
   const products = allStoreProduct?.nodes
 
-  const [hours, setHours] = useState(2)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(15)
+  const [hours, setHours] = useState(1)
+  const [minutes, setMinutes] = useState(30)
+  const [seconds, setSeconds] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,7 +43,7 @@ function Page(props: Props) {
     setSeconds(59)
   }
 
-  if (minutes === 0) {
+  if (minutes === 0 && seconds === 0) {
     setHours((currentHour) => currentHour - 1)
     setMinutes(59)
   }
@@ -95,14 +95,16 @@ function Page(props: Props) {
         <IncentivesHeader />
       </section>
 
-      <section className="page__section">
-        <TemporaryShelf
-          products={products?.slice(4, 8)}
-          hours={hours}
-          minutes={minutes}
-          seconds={seconds}
-        />
-      </section>
+      {hours >= 0 && (
+        <section className="page__section">
+          <TemporaryShelf
+            products={products?.slice(4, 8)}
+            hours={hours}
+            minutes={minutes}
+            seconds={seconds}
+          />
+        </section>
+      )}
 
       <section className="page__section page__section-shelf / grid-section">
         <h2 className="title-section / grid-content">Most Wanted</h2>

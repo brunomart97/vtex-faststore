@@ -1,7 +1,7 @@
 import { useSession } from '@faststore/sdk'
 import { graphql } from 'gatsby'
 import { GatsbySeo, JsonLd } from 'gatsby-plugin-next-seo'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import BannerText from 'src/components/sections/BannerText'
 import Hero from 'src/components/sections/Hero'
 import IncentivesHeader from 'src/components/sections/Incentives/IncentivesHeader'
@@ -11,7 +11,6 @@ import { mark } from 'src/sdk/tests/mark'
 import type { PageProps } from 'gatsby'
 import type { HomePageQueryQuery } from '@generated/graphql'
 import TemporaryShelf from 'src/components/sections/TemporaryShelf'
-import { useTimer, TimerContextProvider } from 'src/hooks/useTimer'
 
 export type Props = PageProps<HomePageQueryQuery>
 
@@ -27,7 +26,27 @@ function Page(props: Props) {
   const siteUrl = `https://${host}${pathname}`
   const products = allStoreProduct?.nodes
 
-  const { seconds } = useTimer()
+  const [hours, setHours] = useState(2)
+  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(15)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((currentSecond) => currentSecond - 1)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  if (seconds === 0) {
+    setMinutes((currentMinute) => currentMinute - 1)
+    setSeconds(59)
+  }
+
+  if (minutes === 0) {
+    setHours((currentHour) => currentHour - 1)
+    setMinutes(59)
+  }
 
   return (
     <>
@@ -76,12 +95,14 @@ function Page(props: Props) {
         <IncentivesHeader />
       </section>
 
-      <TimerContextProvider>
-        <section className="page__section">
-          <p>S {seconds}</p>
-          <TemporaryShelf products={products?.slice(4, 8)} />
-        </section>
-      </TimerContextProvider>
+      <section className="page__section">
+        <TemporaryShelf
+          products={products?.slice(4, 8)}
+          hours={hours}
+          minutes={minutes}
+          seconds={seconds}
+        />
+      </section>
 
       <section className="page__section page__section-shelf / grid-section">
         <h2 className="title-section / grid-content">Most Wanted</h2>

@@ -17,6 +17,18 @@
       font-weight: 600;
       font-size: 30px;
     }
+
+    .counter {
+      padding: 5px 15px;
+      background-color: rgb(228 64 97);
+      border-radius: 50px;
+
+      span {
+        color: #fff;
+        font-weight: 600;
+        font-size: 30px;
+      }
+    }
   }
 
   .temporary-shelf-subcontainer {
@@ -52,11 +64,11 @@
       }
 
       .temporary-card-price {
-        padding: 10px;
+        padding: 5px 15px;
         color: #000;
         font-size: 20px;
         background-color: #e7e7e7;
-        border-radius: 5px;
+        border-radius: 50px;
       }
     }
   }

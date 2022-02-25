@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Webpack Bundle analyzer
 - `GatsbyLink` to `Link` ui component.
 - `Skeleton` loading components.
+- `SuggestionsTopSearch` component
+- `PostalCodeInput` component and `usePostalCode` hook.
+- `SuggestionProductCard` component.
 
 ### Changed
 - Moves icons to `/static/icons` folder
@@ -19,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactors cart sidebar
 - `BreadcrumbWrapper` from components/ui folder to `Breadcrumb` at components/sections
 - Replace relative stylesheets imports with absolute path
+- Moves some `Filter` component logic to the API
+-  Implements the expanded mode of `Searchbar` in mobile devices.
 
 ### Deprecated
 - useWindowDimensions hook
@@ -32,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Display box from `<ProductCard/>` component
 
 ### Fixed
+- The divisor for the `Breadcrumb` component not rendering valid HTML.
+- useBuyButton/useRemoveButton hooks with inconsistent typings/behaviors
 - React tree re-rendering
 - Footer rendering pipeline
 - Scroll lock when transitioning pages on mobile via `SlideOver` component navigation

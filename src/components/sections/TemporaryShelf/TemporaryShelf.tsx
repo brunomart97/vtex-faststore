@@ -5,13 +5,26 @@ import './temporary-shelf.scss'
 
 interface TemporaryShelfProps {
   products: ProductSummary_ProductFragment[]
+  hours: number
+  minutes: number
+  seconds: number
 }
 
-function TemporaryShelf({ products }: TemporaryShelfProps) {
+function TemporaryShelf({
+  products,
+  hours,
+  minutes,
+  seconds,
+}: TemporaryShelfProps) {
   return (
     <div className="temporary-shelf-container">
       <div className="temporary-time-box">
         <h3>Limited Time Offer</h3>
+        <div className="counter">
+          <span>{hours < 10 ? `0${hours}` : hours}:</span>
+          <span>{minutes < 10 ? `0${minutes}` : minutes}:</span>
+          <span>{seconds < 10 ? `0${seconds}` : seconds}</span>
+        </div>
       </div>
       <ul className="temporary-shelf-subcontainer">
         {products.map((product) => (
